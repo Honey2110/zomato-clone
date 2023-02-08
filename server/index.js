@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import dotenv from "dotenv";
 import ConnectDB from "./database/connection"
+import mongoose from "mongoose";
 dotenv.config();
 
 const zomato = express();
@@ -14,15 +15,15 @@ zomato.get(("/") , (req, res) => {
 });
 
 const PORT = 4000;
+mongoose.set('strictQuery', false)
 
 zomato.listen(PORT, () => {
-    // ConnectDB()
-    //     .then(() => {
-    //         console.log("Successfully Connected to database!!!");
-    //     })
-    //     .catch((error) => {
-    //     console.log("Succes for running but failed to connect ");
-    //    console.log(error);
-    // });
-    console.log("Successfully Connected to database!!!");
+    ConnectDB()
+        .then(() => {
+            console.log("Server is running!!!");
+        })
+        .catch((error) => {
+        console.log("Success for running but failed to connect ");
+       console.log(error);
+    });
 });
